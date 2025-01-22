@@ -3,6 +3,8 @@ package br.com.api_test.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,55 +22,65 @@ public class Controller {
     @Autowired
     private Repo action;
 
-    @PostMapping("/register")
+    @PostMapping("/api")
     public Pessoa register(@RequestBody Pessoa p) { 
         return action.save(p);
     }
 
-    @GetMapping("/register")
+    @GetMapping("/api")
     public List<Pessoa> selectAll() {
         return action.findAll();
     }
 
-    @GetMapping("/register/{id}")
+    @GetMapping("/api/{id}")
     public Pessoa selectById(@PathVariable int id) {
         return action.findById(id);
     }
 
-    @PutMapping("/register")
+    @PutMapping("/api")
     public Pessoa update(@RequestBody Pessoa p) {
         return action.save(p);
     }
 
-    @DeleteMapping("register/{id}")
+    @DeleteMapping("api/{id}")
     public void delete(@PathVariable int id) {
         Pessoa p = selectById(id);
         action.delete(p);
     }
 
-    @GetMapping("/register/count")
+    @GetMapping("/api/count")
     public long contador(){
         return action.count();
     }
 
-    @GetMapping("/register/order_name")
+    @GetMapping("/api/order_name")
     public List<Pessoa> orderByName(){
         return action.findByOrderByNome();
     }
 
-    @GetMapping("/register/filter_name")
+    @GetMapping("/api/filter_name")
     public List<Pessoa> filterByName(){
         return action.findByNomeOrderByIdadeDesc("Lucas");
     }
 
-    @GetMapping("/register/filter_term")
+    @GetMapping("/api/filter_term")
     public List<Pessoa> filterByTerm(){
         return action.findByNomeContaining("u");
     }
 
-    @GetMapping("/register/start_with")
+    @GetMapping("/api/start_with")
     public List<Pessoa> startWith() {
         return action.findByNomeStartsWith("L");
+    }
+
+    @GetMapping("/api/sum_ages")
+    public int sumAges(){
+        return action.sumAges();
+    }
+
+    @GetMapping("/api/query_bigger_age")
+    public List<Pessoa> ageEqualOrBigger() {
+        return action.ageEqualOrBigger(28);
     }
 
     @GetMapping("")
@@ -84,6 +96,11 @@ public class Controller {
     @PostMapping("/person")
     public Pessoa pessoa(@RequestBody Pessoa p) {
         return p;
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<?> status(){
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 }
