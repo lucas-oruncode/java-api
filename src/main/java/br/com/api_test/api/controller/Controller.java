@@ -46,6 +46,31 @@ public class Controller {
         action.delete(p);
     }
 
+    @GetMapping("/register/count")
+    public long contador(){
+        return action.count();
+    }
+
+    @GetMapping("/register/order_name")
+    public List<Pessoa> orderByName(){
+        return action.findByOrderByNome();
+    }
+
+    @GetMapping("/register/filter_name")
+    public List<Pessoa> filterByName(){
+        return action.findByNomeOrderByIdadeDesc("Lucas");
+    }
+
+    @GetMapping("/register/filter_term")
+    public List<Pessoa> filterByTerm(){
+        return action.findByNomeContaining("u");
+    }
+
+    @GetMapping("/register/start_with")
+    public List<Pessoa> startWith() {
+        return action.findByNomeStartsWith("L");
+    }
+
     @GetMapping("")
     public String mensagem() {
         return "Hello Word";

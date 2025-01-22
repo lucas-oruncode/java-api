@@ -11,6 +11,16 @@ import br.com.api_test.api.models.Pessoa;
 public interface Repo extends CrudRepository<Pessoa, Integer> {
     
     List<Pessoa> findAll();
+    
     Pessoa findById(int id);
+
+    List<Pessoa> findByOrderByNome();
+
+    List<Pessoa> findByNomeOrderByIdadeDesc(String nome);
+
+    List<Pessoa> findByNomeContaining(String termo);
+
+    List<Pessoa> findByNomeStartsWith(String termo);
+
 
 }
