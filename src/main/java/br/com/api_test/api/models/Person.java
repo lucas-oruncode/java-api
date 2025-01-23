@@ -7,14 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "pessoas")
-public class Pessoa {
+@Table(name = "persons")
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome;
-    private int idade;
+    private String name;
+    private int age;
     
     public int getId() {
         return id;
@@ -22,17 +22,18 @@ public class Pessoa {
     public void setId(int id) {
         this.id = id;
     }
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
-    public int getIdade() {
-        return idade;
+    public int getAge() {
+        return age;
     }
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setAge(int age) {
+        this.age = age;
     }
+    
     
 }

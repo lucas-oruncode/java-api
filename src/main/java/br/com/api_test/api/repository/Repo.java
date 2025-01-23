@@ -6,27 +6,29 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.api_test.api.models.Pessoa;
+import br.com.api_test.api.models.Person;
 
 @Repository
-public interface Repo extends CrudRepository<Pessoa, Integer> {
+public interface Repo extends CrudRepository<Person, Integer> {
     
-    List<Pessoa> findAll();
+    List<Person> findAll();
     
-    Pessoa findById(int id);
+    Person findById(int id);
 
-    List<Pessoa> findByOrderByNome();
+    List<Person> findByOrderByName();
 
-    List<Pessoa> findByNomeOrderByIdadeDesc(String nome);
+    List<Person> findByNameOrderByAgeDesc(String name);
 
-    List<Pessoa> findByNomeContaining(String termo);
+    List<Person> findByNameContaining(String term);
 
-    List<Pessoa> findByNomeStartsWith(String termo);
+    List<Person> findByNameStartsWith(String term);
 
-    @Query(value = "SELECT SUM(idade) FROM pessoas", nativeQuery = true)
+    int countById(int id);
+
+    @Query(value = "SELECT SUM(age) FROM person", nativeQuery = true)
     int sumAges();
 
-    @Query(value = "SELECT * FROM pessoas WHERE idade >= :idade", nativeQuery = true)
-    List<Pessoa> ageEqualOrBigger(int idade);
+    @Query(value = "SELECT * FROM person WHERE idade >= :age", nativeQuery = true)
+    List<Person> ageEqualOrBigger(int age);
 
 }

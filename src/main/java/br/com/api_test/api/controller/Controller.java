@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api_test.api.models.Pessoa;
+import br.com.api_test.api.models.Person;
 import br.com.api_test.api.repository.Repo;
+import br.com.api_test.api.services.Services;
 
 @RestController
 public class Controller {
@@ -22,30 +23,33 @@ public class Controller {
     @Autowired
     private Repo action;
 
+    @Autowired
+    private Services service;
+
+
     @PostMapping("/api")
-    public Pessoa register(@RequestBody Pessoa p) { 
-        return action.save(p);
+    public ResponseEntity<?> register(@RequestBody Person p) { 
+        return service.register(p);
     }
 
     @GetMapping("/api")
-    public List<Pessoa> selectAll() {
-        return action.findAll();
+    public ResponseEntity<?> selectAll() {
+        return service.selectAll();
     }
 
     @GetMapping("/api/{id}")
-    public Pessoa selectById(@PathVariable int id) {
-        return action.findById(id);
+    public ResponseEntity<?> selectById(@PathVariable int id) {
+        return service.selectById(id);
     }
 
     @PutMapping("/api")
-    public Pessoa update(@RequestBody Pessoa p) {
-        return action.save(p);
+    public ResponseEntity<?> update(@RequestBody Person p) {
+        return service.update(p);
     }
 
     @DeleteMapping("api/{id}")
-    public void delete(@PathVariable int id) {
-        Pessoa p = selectById(id);
-        action.delete(p);
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        return service.delete(id);
     }
 
     @GetMapping("/api/count")
@@ -54,23 +58,23 @@ public class Controller {
     }
 
     @GetMapping("/api/order_name")
-    public List<Pessoa> orderByName(){
-        return action.findByOrderByNome();
+    public List<Person> orderByName(){
+        return action.findByOrderByName();
     }
 
     @GetMapping("/api/filter_name")
-    public List<Pessoa> filterByName(){
-        return action.findByNomeOrderByIdadeDesc("Lucas");
+    public List<Person> filterByName(){
+        return action.findByNameOrderByAgeDesc("Lucas");
     }
 
     @GetMapping("/api/filter_term")
-    public List<Pessoa> filterByTerm(){
-        return action.findByNomeContaining("u");
+    public List<Person> filterByTerm(){
+        return action.findByNameContaining("u");
     }
 
     @GetMapping("/api/start_with")
-    public List<Pessoa> startWith() {
-        return action.findByNomeStartsWith("L");
+    public List<Person> startWith() {
+        return action.findByNameStartsWith("L");
     }
 
     @GetMapping("/api/sum_ages")
@@ -79,7 +83,7 @@ public class Controller {
     }
 
     @GetMapping("/api/query_bigger_age")
-    public List<Pessoa> ageEqualOrBigger() {
+    public List<Person> ageEqualOrBigger() {
         return action.ageEqualOrBigger(28);
     }
 
@@ -94,7 +98,7 @@ public class Controller {
     }
      
     @PostMapping("/person")
-    public Pessoa pessoa(@RequestBody Pessoa p) {
+    public Person pessoa(@RequestBody Person p) {
         return p;
     }
 
